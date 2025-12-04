@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { 
+    -webkit-font-smoothing: antialiased; 
+  }
+}
+
+@layer utilities {
+  .hide-scroll::-webkit-scrollbar { display: none; }
+  .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* Toastify Overrides for Brand Consistency */
+:root {
+  --toastify-color-dark: #0c0c0c;
+  --toastify-color-success: #EB3986;
+  --toastify-font-family: 'Montserrat', sans-serif;
+}
+.Toastify__toast {
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
