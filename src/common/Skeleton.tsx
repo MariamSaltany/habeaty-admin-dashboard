@@ -1,3 +1,4 @@
+import React from 'react';
 import type { HTMLAttributes } from 'react';
 
 interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
@@ -6,10 +7,10 @@ interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({ className = '', variant = 'rectangular', ...props }) => {
-  const baseClasses = "animate-pulse bg-gray-200";
+  const baseClasses = "animate-pulse bg-slate-200";
   const variantClasses = {
     text: "rounded h-4",
-    rectangular: "rounded-md",
+    rectangular: "rounded-lg",
     circular: "rounded-full"
   };
 

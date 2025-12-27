@@ -1,53 +1,62 @@
-// src/App.tsx
+// kotobi-admin-dashboard-web/src/App.tsx
 import React, { Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './common/ProtectedRoute';
+
 import { MainLayout } from './layout/MainLayout';
-// This import now correctly points to the new file:
-import { ErrorBoundary } from './common/ErorrBoundarya'; 
+import { ErrorBoundary } from './common/ErrorBoundary'; 
 import { LoadingScreen } from './common/LoadingScreen';
 
-// Lazy Loading Pages (Performance Optimization)
-const LoginPage = lazy(() => import('./pages/LoginPage').then(module => ({ default: module.LoginPage })));
-const DashboardPage = lazy(() => import('./pages/DashboardPage').then(module => ({ default: module.DashboardPage })));
-const ProductFormPage = lazy(() => import('./pages/ProductFormPage').then(module => ({ default: module.ProductFormPage })));
-const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage').then(module => ({ default: module.ProductDetailPage })));
+
+const lazyLoad = (path: string, namedExport: string) => 
+  lazy(() => import(`./pages/${path}.tsx`).then(m => ({ default: m[namedExport] })));
+
+const LoginPage = lazyLoad('LoginPage', 'LoginPage');
+const DashboardPage = lazyLoad('DashboardPage', 'DashboardPage');
+const BooksPage = lazyLoad('BooksPage', 'BooksPage');
+const CategoriesPage = lazyLoad('CategoriesPage', 'CategoriesPage');
+const AuthorsPage = lazyLoad('AuthorsPage', 'AuthorsPage');
+const BookFormPage = lazyLoad('BookFormPage', 'BookFormPage');
+const BookDetailPage = lazyLoad('BookDetailPage', 'BookDetailPage');
+const AuthorFormPage = lazyLoad('AuthorFormPage', 'AuthorFormPage');
 
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      {/* HashRouter wraps everything so AuthProvider can access navigation context if needed */}
       <HashRouter>
         <AuthProvider>
           <ToastContainer 
             position="bottom-right" 
             autoClose={3000} 
-            hideProgressBar 
-            newestOnTop={false} 
-            closeOnClick 
-            rtl={false} 
-            pauseOnFocusLoss 
-            draggable 
-            pauseOnHover 
             theme="dark"
+            hideProgressBar
           />
+          
           <Suspense fallback={<LoadingScreen />}>
             <Routes>
+              {/* Public Routes */}
               <Route path="/login" element={<LoginPage />} />
               
               {/* Protected Admin Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route element={<MainLayout />}>
                   <Route path="/" element={<DashboardPage />} />
-                  <Route path="/product/add" element={<ProductFormPage />} />
-                  <Route path="/product/edit/:id" element={<ProductFormPage />} />
-                  <Route path="/product/:id" element={<ProductDetailPage />} />
+                  <Route path="/books" element={<BooksPage />} />
+                  <Route path="/categories" element={<CategoriesPage />} />
+                  <Route path="/authors" element={<AuthorsPage />} />
+                  <Route path="/author/add" element={<AuthorFormPage />} />
+                  <Route path="/author/edit/:id" element={<AuthorFormPage />} />
+                  <Route path="/book/add" element={<BookFormPage />} />
+                  <Route path="/book/edit/:slug" element={<BookFormPage />} />
+                  <Route path="/book/:slug" element={<BookDetailPage />} />
                 </Route>
               </Route>
 
+              {/* Catch-all Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
@@ -58,10 +67,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-// 👇 REMOVE ALL THE CODE BELOW THIS LINE IN YOUR App.tsx FILE
-/*
-interface State { ... }
-class ErrorBoundary extends React.Component<Props, State> { ... }
-export default ErrorBoundary;
-*/

@@ -14,13 +14,13 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props 
 }) => {
-  const baseStyle = "uppercase tracking-widest text-xs font-bold py-3 px-6 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyle = "uppercase tracking-widest text-[10px] font-bold py-3.5 px-8 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-95";
   
   const variants = {
-    primary: "bg-brand-black text-white hover:bg-brand-pink border border-transparent",
-    secondary: "bg-brand-gray text-brand-black hover:bg-gray-300 border border-transparent",
+    primary: "bg-black text-white hover:bg-[#ff4081] shadow-lg hover:shadow-[#ff4081]/30 border border-transparent",
+    secondary: "bg-slate-100 text-black hover:bg-slate-200 border border-transparent",
     danger: "bg-red-600 text-white hover:bg-red-700 border border-transparent",
-    outline: "bg-transparent text-brand-black border border-brand-black hover:bg-brand-black hover:text-white"
+    outline: "bg-transparent text-black border-2 border-black hover:bg-black hover:text-white"
   };
 
   return (

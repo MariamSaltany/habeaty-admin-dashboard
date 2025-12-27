@@ -12,7 +12,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   
   const navItems = [
     { name: 'Dashboard', path: '/' },
-    { name: 'Add Product', path: '/product/add' },
+    { name: 'Books', path: '/books' },
+    { name: 'Categories', path: '/categories' },
+    { name: 'Authors', path: '/authors' },
   ];
 
   const handleLogout = () => {
@@ -39,7 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {/* Logo Area */}
           <div className="mb-12 flex items-center justify-between md:justify-center">
             <h1 className="text-2xl font-black uppercase tracking-tighter">
-              HA<span className="text-brand-pink">Admin</span>
+              Ko<span className="text-brand-pink">tobi</span>
             </h1>
             <button onClick={onClose} className="md:hidden text-gray-400 hover:text-white">
                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>

@@ -1,13 +1,20 @@
-import axios from 'axios';
-import type { LoginResponse } from '../types';
+// kotobi-admin-dashboard-web/src/services/authService.ts
+import axiosClient from '../api/axiosClient';
+import type { ApiResponse, AuthData } from '../types';
 
-// Using direct axios here to avoid the interceptor loop during login
-const API_URL = 'https://dummyjson.com/auth';
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
 
-export const loginUser = async (username: string, password: string): Promise<LoginResponse> => {
-  const response = await axios.post<LoginResponse>(`${API_URL}/login`, {
-    username,
-    password,
-  });
-  return response.data;
+export const authService = {
+  login: async (credentials: LoginCredentials): Promise<ApiResponse<AuthData>> => {
+    const response = await axiosClient.post<ApiResponse<AuthData>>('/auth/login', credentials);
+    return response.data;
+  },
+
+  logout: async (): Promise<ApiResponse<null>> => {
+    const response = await axiosClient.post<ApiResponse<null>>('/auth/logout');
+    return response.data;
+  }
 };

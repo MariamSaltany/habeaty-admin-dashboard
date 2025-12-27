@@ -30,22 +30,22 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
       
       {/* Right: User Profile */}
       <div className="flex items-center gap-6">
-        {user && (
-          <div className="flex items-center gap-4 pl-6 border-l border-gray-100">
+          {user && (
+           <div className="flex items-center gap-4 pl-6 border-l border-gray-100">
              <div className="text-right">
-                <p className="text-xs font-bold uppercase tracking-wider text-brand-black">{user.firstName} {user.lastName}</p>
-                <p className="text-[9px] font-bold text-brand-pink tracking-widest uppercase">Admin</p>
+               <p className="text-xs font-bold uppercase tracking-wider text-brand-black">{user.first_name || user.name} {user.last_name || ''}</p>
+               <p className="text-[9px] font-bold text-brand-pink tracking-widest uppercase">Admin</p>
              </div>
              <div className="relative">
-                <img 
-                    src={user.image} 
-                    alt="User" 
-                    className="w-10 h-10 rounded-full border-2 border-gray-100 shadow-sm object-cover" 
-                />
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></div>
+              <img 
+                src={(user as any).photo?.data || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.first_name || user.name || user.username)}&background=f1f5f9&color=64748b&size=128&bold=true`} 
+                  alt="User" 
+                  className="w-10 h-10 rounded-full border-2 border-gray-100 shadow-sm object-cover" 
+               />
+               <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></div>
              </div>
-          </div>
-        )}
+           </div>
+          )}
       </div>
     </header>
   );
